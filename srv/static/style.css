@@ -12,14 +12,34 @@ body{
 
 nav{
     margin: 1%;
+    @media screen and (max-width: 600px){
+        margin-bottom: 10%; 
+    }
+
+    @media screen and (min-width: 600px){
+        margin-bottom: 1%;
+    }
+    
 }
 
 .row{
-    margin: 7% !important;
-    margin-top: 2% !important;
-    margin-bottom: 0 !important;
+
+    @media screen and (max-width: 600px){
+        margin: auto !important;
+    }
+
+    @media screen and (min-width: 600px){
+        margin: 7% !important;
+    }
+
+    margin-top: 0% !important;
 }
 
 hide{
     color: transparent;
+}
+
+.card{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* margin-bottom: 1% !important; */
 }
