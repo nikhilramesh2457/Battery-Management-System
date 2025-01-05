@@ -6,15 +6,8 @@
 /**
  * Function from Arduino WMath.cpp modified to work for floating point number
 **/
-float VoltageProbe::map_f(double x, double in_min, double in_max, double out_min, double out_max) {
-  const double run = in_max - in_min;
-  if (run == 0) {
-    log_e("map(): Invalid input range, min == max");
-    return -1;  // AVR returns -1, SAM returns 0
-  }
-  const double rise = out_max - out_min;
-  const double delta = x - in_min;
-  return float((delta * rise) / run + out_min);
+float VoltageProbe::map_f(double value, double fromLow, double fromHigh, double toLow, double toHigh) {
+  return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
 }
 
 /**
@@ -84,34 +77,40 @@ float VoltageProbe::calcVoltage(float volt, int batteryNumber) {
  * @param batteryNumber (int): Battery Index
  * @return (int) raw ADC Battery Voltage Reading
  **/
-float VoltageProbe::readVoltage(int batteryNumber){
-  if(batteryNumber > 17 || batteryNumber < 0){
+float VoltageProbe::readVoltage(int batteryNumber) {
+  if (batteryNumber > 17 || batteryNumber < 0) {
     return 0;
   }
 
-  else if(batteryNumber == 17){
-    Serial.println(analogRead(READ_BATTERY_17_PIN));
+  else if (batteryNumber == 17) {
+    return analogRead(READ_BATTERY_17_PIN);
   }
-  
+
   setMux(batteryNumber);
-  Serial.println(analogRead(READ_MUX));
+  return analogRead(READ_MUX);
 }
 
 
 /** 
  * Set the Mux Select line to the channel
  * @param line2Select(int): Channel to select
- * @return (int): -1 on error
+ * @return (int): -1 on error, 0 otherwise
  **/
-int VoltageProbe::setMux(int line2Select){
-  if(line2Select < 0 || line2Select > 15){
+int VoltageProbe::setMux(int line2Select) {
+  if (line2Select < 0 || line2Select > 15) {
     return -1;
   }
 
+  Serial.print("Binary bits: ");
+  Serial.print(int(line2Select % 2));
+  Serial.print(int(line2Select / 2) % 2);
+  Serial.print(int(line2Select / 4) % 2);
+  Serial.println(int(line2Select / 8) % 2);
+
   digitalWrite(selectLines[0], line2Select % 2);
-  digitalWrite(selectLines[1], (line2Select / 2) % 2);
-  digitalWrite(selectLines[2], (line2Select / 4) % 8);
-  digitalWrite(selectLines[3], (line2Select / 8) % 16);
+  digitalWrite(selectLines[1], int(line2Select / 2) % 2);
+  digitalWrite(selectLines[2], int(line2Select / 4) % 2);
+  digitalWrite(selectLines[3], int(line2Select / 8) % 2);
 
   return 0;
 }

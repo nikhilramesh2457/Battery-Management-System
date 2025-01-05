@@ -28,6 +28,6 @@
 #define READ_BATTERY_17_PIN 37
 
 // Select lines 
-const int selectLines[] = {16, 4, 2, 15};
+const int selectLines[] = {25, 26, 27,14};
 
 #endif

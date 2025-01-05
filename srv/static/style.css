@@ -1,0 +1,25 @@
+@font-face {
+    font-family: QuickSand;
+    src: url(/static/font.ttf);
+}
+
+body{
+    background-color: #f0f0f0;
+    font-family: QuickSand !important;
+    /* margin: 7% !important; */
+    padding: 0;
+}
+
+nav{
+    margin: 1%;
+}
+
+.row{
+    margin: 7% !important;
+    margin-top: 2% !important;
+    margin-bottom: 0 !important;
+}
+
+hide{
+    color: transparent;
+}
