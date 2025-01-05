@@ -20,6 +20,11 @@
 #define BATTERY_15 15
 #define BATTERY_16 -1
 
+#define PANEL_0 0
+#define PANEL_1 1
+#define PANEL_2 2
+#define PANEL_3 3
+
 
 // Mux Output ADC Pin
 #define READ_MUX 34
