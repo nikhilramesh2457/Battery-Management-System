@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import random
+from datetime import datetime
 
 app = FastAPI()
 
@@ -33,6 +34,10 @@ async def set_battery_voltage(battery_number: int, voltage: float, charging: boo
         state["battery_status"][battery_number]["voltage"] = voltage
         state["battery_status"][battery_number]["charging"] = int(charging)
         print(state["battery_status"])
+
+        # Update timestamp
+        state["timestamp"] = datetime.now().strftime("%Y.%m.%d %I:%M %p")
+
         return {"message": "Battery voltage updated successfully"}
     else:
         return {"error": "Battery number not found"}
@@ -41,6 +46,7 @@ async def set_battery_voltage(battery_number: int, voltage: float, charging: boo
 async def set_battery_voltage(panel_number: str, in_use: bool):
     if panel_number in state["panel_status"]:
         state["panel_status"]["panel_number"] = int(in_use)
+        state["timestamp"] = datetime.now().strftime("%Y.%m.%d %I:%M %p")
         return {"message": "Battery voltage updated successfully"}
     else:
         return {"error": "Battery number not found"}
