@@ -1,9 +1,12 @@
 #include "constants.h"
 #include "network.h"
+#include "switching.h"
 #include "voltageProbe.h"
 
 Network net;
+Switching s;
 VoltageProbe probe;
+
 
 void setup() {
   Serial.begin(115200, SERIAL_8N1);
@@ -39,7 +42,15 @@ void loop() {
   // }
   // delay(1000);
 
-  net.logBatteryVoltage(random(0, 17), random(10, 14.4), random(0, 1));
-  net.logPanelUsage(random(0, 4), random(0, 1));
-  delay(7000);
+  // net.logBatteryVoltage(random(0, 17), random(10, 14.4), random(0, 1));
+  // net.logPanelUsage(random(0, 4), random(0, 1));
+  for (int x = 0; x < 17; x++) {
+    Serial.print(x);
+    Serial.print(":");
+    s.startChargingBattery(x);
+    Serial.print("-");
+    Serial.println(s.panelSwitchingLogic(x));
+    delay(1000);
+  }
+  
 }

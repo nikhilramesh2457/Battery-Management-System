@@ -2,28 +2,28 @@
 #define __CONSTANTS_H
 
 // Battery numbers
-#define BATTERY_00 0
-#define BATTERY_01 1
-#define BATTERY_02 2
-#define BATTERY_03 3
-#define BATTERY_04 4
-#define BATTERY_05 5
-#define BATTERY_06 6
-#define BATTERY_07 7
-#define BATTERY_08 8
-#define BATTERY_09 9
-#define BATTERY_10 10
-#define BATTERY_11 11
-#define BATTERY_12 12
-#define BATTERY_13 13
-#define BATTERY_14 14
-#define BATTERY_15 15
-#define BATTERY_16 -1
+#define BATTERY_01 0
+#define BATTERY_02 1
+#define BATTERY_03 2
+#define BATTERY_04 3
+#define BATTERY_05 4
+#define BATTERY_06 5
+#define BATTERY_07 6
+#define BATTERY_08 7
+#define BATTERY_09 8
+#define BATTERY_10 9
+#define BATTERY_11 10
+#define BATTERY_12 11
+#define BATTERY_13 12
+#define BATTERY_14 13
+#define BATTERY_15 14
+#define BATTERY_16 15
+#define BATTERY_17 16
 
-#define PANEL_0 0
-#define PANEL_1 1
-#define PANEL_2 2
-#define PANEL_3 3
+#define PANEL_1 0
+#define PANEL_2 1
+#define PANEL_3 2
+#define PANEL_4 3
 
 
 // Mux Output ADC Pin
