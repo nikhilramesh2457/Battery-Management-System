@@ -9,12 +9,37 @@
  * @param batteryNumber (int): Battery Number to charge
  **/
 void Switching::startChargingBattery(int batteryNumber) {
-  // Connect the Panel to the battery set
-  connectPanelLine(panelSwitchingLogic(batteryNumber));
+
+  // Safety Check
+  if (batteryNumber < BATTERY_01 || batteryNumber > BATTERY_17) {
+    return;
+  }
+
+  byte panelNumber = panelSwitchingLogic(batteryNumber);
+
+  // Disconnect the panel from battery set before switching
+  disconnectPanelLine(panelNumber);
+
+  // Small delay to ensure complete switching
+  delay(1000);
 
   // Toggle the relay switches for the battery
   int relayLogicValue = batterySwitchingLogic(batteryNumber);
   Serial.print(relayLogicValue);
+  Serial.print(" > ");
+  Serial.print(String(int(relayLogicValue % 2)) + String(int(relayLogicValue / 2) % 2) + String(int(relayLogicValue / 4) % 2));
+
+  // Set the relay bits on the GPIO
+  // TODO: Invert the logic for relays here
+  digitalWrite(batteryControlPins[panelNumber][2], bool(int(relayLogicValue % 2)));
+  digitalWrite(batteryControlPins[panelNumber][1], bool(int(relayLogicValue / 2) % 2));
+  digitalWrite(batteryControlPins[panelNumber][0], bool(int(relayLogicValue / 4) % 2));
+
+  // Small delay to ensure complete switching
+  delay(1000);
+
+  // Connect the Panel to the battery set
+  connectPanelLine(panelSwitchingLogic(batteryNumber));
 }
 
 /**
@@ -23,14 +48,19 @@ void Switching::startChargingBattery(int batteryNumber) {
  **/
 void Switching::stopChargingBattery(int batteryNumber) {
   disconnectPanelLine(panelSwitchingLogic(batteryNumber));
-} 
+}
 
 /**
  * Disconnect panel from battery sets
  * @param lineNumber (int): Panel to completely disconnect 
  **/
 void Switching::disconnectPanelLine(int lineNumber) {
-  
+  if (lineNumber < PANEL_1 || lineNumber > PANEL_4) {
+    return;
+  }
+  // TODO: Invert the logic here for relay
+  digitalWrite(panelControlPins[lineNumber], LOW);
+  // Serial.println("Disconnecting panel " + String(lineNumber));
 }
 
 /**
@@ -38,7 +68,12 @@ void Switching::disconnectPanelLine(int lineNumber) {
  * @param lineNumber (int): Panel to completely disconnect 
  **/
 void Switching::connectPanelLine(int lineNumber) {
-
+  if (lineNumber < PANEL_1 || lineNumber > PANEL_4) {
+    return;
+  }
+  // TODO: Invert the logic here for relays
+  digitalWrite(panelControlPins[lineNumber], HIGH);
+  // Serial.println("Connecting Panel: " + String(lineNumber));
 }
 
 /**
