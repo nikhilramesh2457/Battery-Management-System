@@ -36,6 +36,7 @@
 const int selectLines[] = {25, 26, 27,14};
 
 // Battery Relay Controller Pins
+// TODO: Switch D2 to Tx / RX Pin during deployment
 const int batteryControlPins[4][3] = {{-1, 5, 4}, {-1, 2, 32}, {-1, 13, 15}, {16, 17, 18}};
 
 // Panel Relay Control Pins
