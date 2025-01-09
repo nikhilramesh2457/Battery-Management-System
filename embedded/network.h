@@ -17,11 +17,15 @@ public:
 
   // Log Battery Voltage
   int logBatteryVoltage(int batteryNumber, float voltage, bool charging);
+
+  // Log messages
+  void logger(String message);
 };
 
 static const char* ssid = "muS";
 static const char* pswd = "1qaz2wsx3edc4rfv";
 
-static const String serverIp = "http://192.168.133.24:8080";
+// static const String serverIp = "http://192.168.133.24:8080";
+static const String serverIp = "https://hog-valued-pig.ngrok-free.app";
 
 #endif

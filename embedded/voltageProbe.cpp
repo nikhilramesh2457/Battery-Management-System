@@ -16,58 +16,57 @@ float VoltageProbe::map_f(double value, double fromLow, double fromHigh, double 
 * @param batteryNumber (int): Battery Number
 * @return (float) Battery Voltage
 **/
-
 float VoltageProbe::calcVoltage(float volt, int batteryNumber) {
-  if (batteryNumber == 0) {
-    return (map_f(volt, 1.72, 2.48, 10, 14.4));
+  if (batteryNumber == BATTERY_01) {
+    return (map_f(volt, 1.71, 2.39, 10, 14.4));
   }
-  if (batteryNumber == 1) {
-    return (map_f(volt, 1.89, 2.72, 10, 14.4));
+  if (batteryNumber == BATTERY_02) {
+    return (map_f(volt, 1.82, 2.55, 10, 14.4));
   }
-  if (batteryNumber == 2) {
-    return (map_f(volt, 1.95, 2.81, 10, 14.4));
+  if (batteryNumber == BATTERY_03) {
+    return (map_f(volt, 1.92, 2.68, 10, 14.4));
   }
-  if (batteryNumber == 3) {
-    return (map_f(volt, 1.98, 2.85, 10, 14.4));
+  if (batteryNumber == BATTERY_04) {
+    return (map_f(volt, 1.82, 2.54, 10, 14.4));
   }
-  if (batteryNumber == 4) {
-    return (map_f(volt, 2.00, 2.88, 10, 14.4));
+  if (batteryNumber == BATTERY_05) {
+    return (map_f(volt, 1.93, 2.71, 10, 14.4));
   }
-  if (batteryNumber == 5) {
-    return (map_f(volt, 2.01, 2.90, 10, 14.4));
+  if (batteryNumber == BATTERY_06) {
+    return (map_f(volt, 1.91, 2.68, 10, 14.4));
   }
-  if (batteryNumber == 6) {
-    return (map_f(volt, 2.02, 2.91, 10, 14.4));
+  if (batteryNumber == BATTERY_07) {
+    return (map_f(volt, 1.83, 2.56, 10, 14.4));
   }
-  if (batteryNumber == 7) {
-    return (map_f(volt, 2.03, 2.92, 10, 14.4));
+  if (batteryNumber == BATTERY_08) {
+    return (map_f(volt, 0.96, 1.35, 10, 14.4));
   }
-  if (batteryNumber == 8) {
-    return (map_f(volt, 2.04, 2.93, 10, 14.4));
+  if (batteryNumber == BATTERY_09) {
+    return (map_f(volt, 1.93, 2.71, 10, 14.4));
   }
-  if (batteryNumber == 9) {
-    return (map_f(volt, 2.04, 2.94, 10, 14.4));
+  if (batteryNumber == BATTERY_10) {
+    return (map_f(volt, 0.81, 1.14, 10, 14.4));
   }
-  if (batteryNumber == 10) {
-    return (map_f(volt, 2.04, 2.94, 10, 14.4));
+  if (batteryNumber == BATTERY_11) {
+    return (map_f(volt, 2.42, 3.39, 10, 14.4));
   }
-  if (batteryNumber == 11) {
-    return (map_f(volt, 2.05, 2.95, 10, 14.4));
+  if (batteryNumber == BATTERY_12) {
+    return (map_f(volt, 2.12, 2.97, 10, 14.4));
   }
-  if (batteryNumber == 12) {
-    return (map_f(volt, 2.05, 2.95, 10, 14.4));
+  if (batteryNumber == BATTERY_13) {
+    return (map_f(volt, 2.30, 3.22, 10, 14.4));
   }
-  if (batteryNumber == 13) {
-    return (map_f(volt, 2.05, 2.96, 10, 14.4));
+  if (batteryNumber == BATTERY_14) {
+    return (map_f(volt, 2.52, 3.53, 10, 14.4));
   }
-  if (batteryNumber == 14) {
-    return (map_f(volt, 2.05, 2.96, 10, 14.4));
+  if (batteryNumber == BATTERY_15) {
+    return (map_f(volt, 2.61, 3.66, 10, 14.4));
   }
-  if (batteryNumber == 15) {
-    return (map_f(volt, 2.06, 2.96, 10, 14.4));
+  if (batteryNumber == BATTERY_16) {
+    return (map_f(volt, 1.93, 2.70, 10, 14.4));
   }
-  if (batteryNumber == 16) {
-    return (map_f(volt, 2.06, 2.96, 10, 14.4));
+  if (batteryNumber == BATTERY_17) {
+    return (map_f(volt, 2.42, 3.39, 10, 14.4));
   }
   return -1;
 }
@@ -83,11 +82,11 @@ float VoltageProbe::readVoltage(int batteryNumber) {
   }
 
   else if (batteryNumber == 17) {
-    return analogRead(READ_BATTERY_17_PIN);
+    return sampleAverage(READ_BATTERY_17_PIN);
   }
 
   setMux(batteryNumber);
-  return analogRead(READ_MUX);
+  return sampleAverage(READ_MUX);
 }
 
 
@@ -102,15 +101,29 @@ int VoltageProbe::setMux(int line2Select) {
   }
 
   Serial.print("Binary bits: ");
-  Serial.print(int(line2Select % 2));
-  Serial.print(int(line2Select / 2) % 2);
-  Serial.print(int(line2Select / 4) % 2);
-  Serial.println(int(line2Select / 8) % 2);
+  Serial.print(!bool(int(line2Select % 2)));
+  Serial.print(!bool(int(line2Select / 2) % 2));
+  Serial.print(!bool(int(line2Select / 4) % 2));
+  Serial.println(!bool(int(line2Select / 8) % 2));
 
-  digitalWrite(selectLines[0], line2Select % 2);
-  digitalWrite(selectLines[1], int(line2Select / 2) % 2);
-  digitalWrite(selectLines[2], int(line2Select / 4) % 2);
-  digitalWrite(selectLines[3], int(line2Select / 8) % 2);
+  digitalWrite(selectLines[0], !bool(line2Select % 2));
+  digitalWrite(selectLines[1], !bool(int(line2Select / 2) % 2));
+  digitalWrite(selectLines[2], !bool(int(line2Select / 4) % 2));
+  digitalWrite(selectLines[3], !bool(int(line2Select / 8) % 2));
 
   return 0;
+}
+
+/**
+ * Sample the ADC Channel NO_SAMPLE times and average it out
+ * @param pinNumber (int): ADC Pin to Channel
+ * @return (float): Averaged out ADC Value
+ **/
+float VoltageProbe::sampleAverage(int pinNumber){
+  long int sum = 0;
+  for(int x = 0;x < NO_SAMPLES; x++){
+    sum += analogRead(pinNumber);
+  }
+
+  return sum / NO_SAMPLES;
 }

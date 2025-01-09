@@ -86,3 +86,21 @@ int Network::logBatteryVoltage(int batteryNumber, float voltage, bool charging) 
 
   return 0;
 }
+
+void Network::logger(String message){
+  if (connect() == -1) {
+    return;
+  }
+
+  HTTPClient client;
+
+  // Perform the GET request to the Server
+  client.begin((serverIp + "/console_log?msg=" + message).c_str());
+  int responseCode = client.GET();
+
+  Serial.print("Response code: ");
+  Serial.println(responseCode);
+
+  // Free resources
+  client.end();
+}

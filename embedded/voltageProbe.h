@@ -3,6 +3,8 @@
 #ifndef __PROBE_VOLTAGE_H
 #define __PROBE_VOLTAGE_H
 
+#define NO_SAMPLES 10
+
 class VoltageProbe {
 
 public:
@@ -19,6 +21,9 @@ private:
 
   // Set the Mux Select line to the channel
   int setMux(int line2Select);
+
+  // Sample ADC and average out the value
+  float sampleAverage(int pinNumber);
 };
 
 #endif

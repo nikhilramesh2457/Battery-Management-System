@@ -33,14 +33,12 @@
 #define READ_BATTERY_17_PIN 37
 
 // Select lines 
-// TODO: Add D12 to the select line, replacing one of the bits
-const int selectLines[] = {25, 26, 27, 14};
+const int selectLines[] = {13, 12, 14, 27};
 
 // Battery Relay Controller Pins
-// TODO: Switch D2 to a pin from the Mux Pin 
-const int batteryControlPins[4][3] = {{-1, 5, 4}, {-1, 2, 32}, {-1, 13, 15}, {16, 17, 18}};
+const int batteryControlPins[4][3] = {{-1, 21, 22}, {-1, 23, 32}, {-1, 25, 26}, {5, 18, 19}};
 
 // Panel Relay Control Pins
-const byte panelControlPins[] = {23, 22, 21, 19};
+const byte panelControlPins[] = {17, 16, 4, 15};
 
 #endif

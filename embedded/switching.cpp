@@ -31,9 +31,9 @@ void Switching::startChargingBattery(int batteryNumber) {
 
   // Set the relay bits on the GPIO
   // TODO: Invert the logic for relays here
-  digitalWrite(batteryControlPins[panelNumber][2], bool(int(relayLogicValue % 2)));
-  digitalWrite(batteryControlPins[panelNumber][1], bool(int(relayLogicValue / 2) % 2));
-  digitalWrite(batteryControlPins[panelNumber][0], bool(int(relayLogicValue / 4) % 2));
+  digitalWrite(batteryControlPins[panelNumber][2], !bool(int(relayLogicValue % 2)));
+  digitalWrite(batteryControlPins[panelNumber][1], !bool(int(relayLogicValue / 2) % 2));
+  digitalWrite(batteryControlPins[panelNumber][0], !bool(int(relayLogicValue / 4) % 2));
 
   // Small delay to ensure complete switching
   delay(1000);
