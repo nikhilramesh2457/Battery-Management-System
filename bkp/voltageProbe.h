@@ -4,7 +4,6 @@
 #define __PROBE_VOLTAGE_H
 
 #define NO_SAMPLES 10
-#define ADC_READING_OFFSET 0.2
 
 class VoltageProbe {
 

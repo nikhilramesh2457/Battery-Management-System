@@ -7,6 +7,8 @@ Network net;
 Switching s;
 VoltageProbe probe;
 
+float linkVoltages[] = {};
+
 void setup() {
   Serial.begin(115200, SERIAL_8N1);
   delay(1000);
@@ -40,11 +42,6 @@ void setup() {
   pinMode(READ_MUX, INPUT);
   pinMode(READ_BATTERY_17_PIN, INPUT);
 
-  // Set Analog Sampling Configuration
-  analogSetAttenuation(ADC_11db);
-  analogSetWidth(10);
-  analogReadResolution(10);
-
   // Connect to the network
   net.connect();
 
@@ -53,17 +50,15 @@ void setup() {
 
 void loop() {
   // if (Serial.available() > 0) {
-  //   int x = Serial.parseInt();
-  //   //   float voltage = (probe.readVoltage(battery) / 4095) * 3.3;
-  //   //   Serial.print("Battery: ");
-  //   //   Serial.print(battery);
-  //   //   Serial.print(" @ ");
-  //   //   Serial.print(voltage);
-  //   //   Serial.print(" : ");
-  //   //   Serial.println(probe.calcVoltage(voltage, battery));
-  //   //   delay(1000);
-  //   s.startChargingBattery(x);
-  // }
+  // int x = Serial.parseInt();
+  //   float voltage = (probe.readVoltage(battery) / 4095) * 3.3;
+  //   Serial.print("Battery: ");
+  //   Serial.print(battery);
+  //   Serial.print(" @ ");
+  //   Serial.print(voltage);
+  //   Serial.print(" : ");
+  //   Serial.println(probe.calcVoltage(voltage, battery));
+  //   delay(1000);
   // }
   // delay(1000);
 
@@ -77,23 +72,13 @@ void loop() {
   // Serial.println(s.panelSwitchingLogic(x));
   // delay(1000);
 
-  // for(int x = 0;x < 17; x ++){
-  //   s.startChargingBattery(x);
-  //   delay(1000);
-  //   s.stopChargingBattery(x);
-  //   delay(1000);
-  // }
-
   for (int x = 0; x < 17; x++) {
-    float v = probe.readVoltage(x);
-    float voltage = ( v / 1024) * 3.3;
-    // voltage += voltage < 3.0 ?  ADC_READING_OFFSET : 0;
-    float calcVoltage = probe.calcVoltage(voltage, x, 0);
-
-    net.logger("Battery" + String(x) + ":" + String(voltage) + "=" + String(calcVoltage) + "=" + String(v), LOG_LEVEL_DEBUG);
-
+    float voltage = (probe.readVoltage(x) / 4095) * 3.3;
+    float calcVoltage = (x == 0 ? probe.calcVoltage(voltage, x, 0) : probe.calcVoltage(voltage, x, linkVoltages[x - 1]));
+    linkVoltages[x] = calcVoltage;
+    net.logger(String("Battery") + String(x) + ":" + String(calcVoltage) + "->" + String(voltage));
     net.logBatteryVoltage(x, calcVoltage, 0);
     delay(100);
   }
+  // }
 }
-// }

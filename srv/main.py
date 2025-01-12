@@ -7,12 +7,13 @@ from datetime import datetime
 
 app = FastAPI()
 
-state = {"battery_status": {}, "panel_status": {0: 1, 1:0, 2:1, 3:0}, "timestamp": "2025.01.01 00:00 AM"}
+state = {"battery_status": {}, "panel_status": {0: 1, 1:0, 2:1, 3:0}, "timestamp": "2025.01.01 00:00 AM", "logs": []}
 
 for i in range(17):
     state["battery_status"][i] = {
-        "voltage": round(random.uniform(10.0, 14.4), 1),
-        "charging": random.randint(0, 1),
+#        "voltage": round(random.uniform(10.0, 14.4), 1),
+        "voltage": 0,
+        "charging": 0,
     }
 
 print(state)
@@ -51,3 +52,7 @@ async def set_battery_voltage(panel_number: str, in_use: bool):
     else:
         return {"error": "Battery number not found"}
 
+
+@app.get("/console_log")
+async def logger(msg: str):
+	state["logs"].append(str(datetime.now().strftime("%Y.%m.%d %I:%M %p")) + "           " + msg)

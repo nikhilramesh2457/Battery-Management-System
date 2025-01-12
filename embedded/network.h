@@ -6,6 +6,8 @@
 // WiFi Connection Timeout in milliseconds
 #define NETWORK_CONNECT_TIMEOUT 10000
 
+#define SERVER_IP "https://hog-valued-pig.ngrok-free.app"
+
 class Network {
 
 public:
@@ -19,13 +21,10 @@ public:
   int logBatteryVoltage(int batteryNumber, float voltage, bool charging);
 
   // Log messages
-  void logger(String message);
+  void logger(String message, int level);
 };
 
 static const char* ssid = "muS";
 static const char* pswd = "1qaz2wsx3edc4rfv";
-
-// static const String serverIp = "http://192.168.133.24:8080";
-static const String serverIp = "https://hog-valued-pig.ngrok-free.app";
 
 #endif

@@ -19,55 +19,55 @@ float VoltageProbe::map_f(double value, double fromLow, double fromHigh, double 
 **/
 float VoltageProbe::calcVoltage(float volt, int batteryNumber, float prevSeriesLinkVoltage) {
   if (batteryNumber == BATTERY_01) {
-    return map_f(volt, 1.91, 1.75, 12.20, 12.40);
+    return (map_f(volt, 1.71, 2.39, 10 * BATTERY_01, 14.4 * BATTERY_01));
   }
   if (batteryNumber == BATTERY_02) {
-    return map_f(volt, 2.09, 2, 12.40, 11.77);
+    return (map_f(volt, 1.82, 2.55, 10 * BATTERY_02, 14.4 * BATTERY_02) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_03) {
-    return map_f(volt, 2.13, 1.95, 11.77, 11.15);
+    return (map_f(volt, 1.92, 2.68, 10 * BATTERY_03, 14.4 * BATTERY_03) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_04) {
-    return map_f(volt, 1.99, 2.87, 11.15, 11.73);
+    return (map_f(volt, 1.82, 2.54, 10 * BATTERY_04, 14.4 * BATTERY_04) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_05) {
-    return map_f(volt, 2.13, 2.43, 11.73, 12.20);
+    return (map_f(volt, 1.93, 2.71, 10 * BATTERY_05, 14.4 * BATTERY_05) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_06) {
-    return map_f(volt, 2.12, 2.86, 12.20, 11.80);
+    return (map_f(volt, 1.91, 2.68, 10 * BATTERY_06, 14.4 * BATTERY_06) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_07) {
-    return map_f(volt, 2.02, 1.98, 11.80, 12.17);
+    return (map_f(volt, 1.83, 2.56, 10 * BATTERY_07, 14.4 * BATTERY_07) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_08) {
-    return map_f(volt, 1, 1.75, 12.17, 11.87);
+    return (map_f(volt, 0.96, 1.35, 10 * BATTERY_08, 14.4 * BATTERY_08) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_09) {
-    return map_f(volt, 2.13, 2.86, 11.87, 12.01);
+    return (map_f(volt, 1.93, 2.71, 10 * BATTERY_09, 14.4 * BATTERY_09) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_10) {
-    return map_f(volt, 0.82, 2.43, 12.01, 12.53);
+    return (map_f(volt, 0.81, 1.14, 10 * BATTERY_10, 14.4 * BATTERY_10) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_11) {
-    return map_f(volt, 2.84, 2.58, 12.53, 12.47);
+    return (map_f(volt, 2.42, 3.39, 10 * BATTERY_11, 14.4 * BATTERY_11) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_12) {
-    return map_f(volt, 2.39, 2.42, 12.47, 12.62);
+    return (map_f(volt, 2.12, 2.97, 10 * BATTERY_12, 14.4 * BATTERY_12) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_13) {
-    return map_f(volt, 2.66, 2.7, 12.62, 13.86);
+    return (map_f(volt, 2.30, 3.22, 10 * BATTERY_13, 14.4 * BATTERY_13) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_14) {
-    return map_f(volt, 3.04, 3.07, 12.68, 13.86);
+    return (map_f(volt, 2.52, 3.53, 10 * BATTERY_14, 14.4 * BATTERY_14) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_15) {
-    return map_f(volt, 3.17, 3.29, 10.02, 13.97);
+    return (map_f(volt, 2.61, 3.66, 10 * BATTERY_15, 14.4 * BATTERY_15) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_16) {
-    return map_f(volt, 2.19, 2.23, 12.09, 14.05);
+    return (map_f(volt, 1.93, 2.70, 10 * BATTERY_16, 14.4 * BATTERY_16) - prevSeriesLinkVoltage);
   }
   if (batteryNumber == BATTERY_17) {
-    return map_f(volt, 2.86, 2.95, 10.01, 14.01);
+    return (map_f(volt, 2.42, 3.39, 10 * BATTERY_17, 14.4 * BATTERY_17) - prevSeriesLinkVoltage);
   }
   return -1;
 }
@@ -78,11 +78,11 @@ float VoltageProbe::calcVoltage(float volt, int batteryNumber, float prevSeriesL
  * @return (int) raw ADC Battery Voltage Reading
  **/
 float VoltageProbe::readVoltage(int batteryNumber) {
-  if (batteryNumber > BATTERY_17 || batteryNumber < BATTERY_01) {
+  if (batteryNumber > 17 || batteryNumber < 0) {
     return 0;
   }
 
-  else if (batteryNumber == BATTERY_17) {
+  else if (batteryNumber == 17) {
     return sampleAverage(READ_BATTERY_17_PIN);
   }
 
@@ -112,9 +112,6 @@ int VoltageProbe::setMux(int line2Select) {
   digitalWrite(selectLines[2], !bool(int(line2Select / 4) % 2));
   digitalWrite(selectLines[3], !bool(int(line2Select / 8) % 2));
 
-  // Delay to switch the MUX and establish connection
-  delay(1000);
-
   return 0;
 }
 
@@ -127,7 +124,6 @@ float VoltageProbe::sampleAverage(int pinNumber){
   long int sum = 0;
   for(int x = 0;x < NO_SAMPLES; x++){
     sum += analogRead(pinNumber);
-    delay(1);
   }
 
   return sum / NO_SAMPLES;

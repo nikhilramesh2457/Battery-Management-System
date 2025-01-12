@@ -33,6 +33,9 @@ void Switching::startChargingBattery(int batteryNumber) {
   // TODO: Invert the logic for relays here
   digitalWrite(batteryControlPins[panelNumber][2], !bool(int(relayLogicValue % 2)));
   digitalWrite(batteryControlPins[panelNumber][1], !bool(int(relayLogicValue / 2) % 2));
+  if(batteryControlPins[panelNumber][1] == 25 && bool(int(relayLogicValue / 2) % 2)){
+    analogWrite(25, 255);
+  }
   digitalWrite(batteryControlPins[panelNumber][0], !bool(int(relayLogicValue / 4) % 2));
 
   // Small delay to ensure complete switching
