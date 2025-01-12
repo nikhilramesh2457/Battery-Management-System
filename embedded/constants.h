@@ -32,19 +32,18 @@
 // 16th Battery ADC Pin
 #define READ_BATTERY_17_PIN 39
 
+// Log Levels
 #define LOG_LEVEL_DEBUG 1
 #define LOG_LEVEL_WARNING 2
 #define LOG_LEVEL_SUCCESS 3
-
 
 // Select lines 
 const int selectLines[] = {13, 12, 14, 27};
 
 // Battery Relay Controller Pins
-const int batteryControlPins[4][3] = {{-1, 21, 22}, {-1, 23, 32}, {-1, 1, 26}, {5, 18, 19}};
-// const int batteryControlPins[4][3] = {{-1, 21, 22}, {-1, 23, 32}, {-1, 25, 26}, {5, 18, 19}};
+const int batteryControlPins[4][3] = {{-1, 22, 21}, {-1, 32, 23}, {-1, 26, 1}, {5, 18, 19}};
 
 // Panel Relay Control Pins
-const byte panelControlPins[] = {17, 16, 4, 15};
+const byte panelControlPins[] = {17, 16, 15, 4};
 
 #endif

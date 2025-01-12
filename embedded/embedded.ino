@@ -87,13 +87,17 @@ void loop() {
   for (int x = 0; x < 17; x++) {
     float v = probe.readVoltage(x);
     float voltage = ( v / 1024) * 3.3;
-    // voltage += voltage < 3.0 ?  ADC_READING_OFFSET : 0;
     float calcVoltage = probe.calcVoltage(voltage, x, 0);
 
     net.logger("Battery" + String(x) + ":" + String(voltage) + "=" + String(calcVoltage) + "=" + String(v), LOG_LEVEL_DEBUG);
 
+    s.startChargingBattery(x);
+
+    net.logBatteryVoltage(x, calcVoltage, 1);
+    delay(5000);
+    s.stopChargingBattery(x);
     net.logBatteryVoltage(x, calcVoltage, 0);
-    delay(100);
+    delay(1000);
   }
 }
 // }

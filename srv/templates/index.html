@@ -209,7 +209,7 @@
                       autocomplete="off"
                       checked
                       onclick="toggleSuccess()" />
-                    <label class="btn btn-outline-primary" for="btncheck1"
+                    <label class="btn btn-outline-success" for="btncheck1"
                       >Success</label
                     >
 
@@ -220,7 +220,7 @@
                       autocomplete="off"
                       checked
                       onclick="toggleWarning()" />
-                    <label class="btn btn-outline-primary" for="btncheck2"
+                    <label class="btn btn-outline-warning" for="btncheck2"
                       >Warning</label
                     >
 
@@ -229,8 +229,8 @@
                       class="btn-check"
                       id="btncheck3"
                       autocomplete="off"
-                      onclick="toggleDebug" />
-                    <label class="btn btn-outline-primary" for="btncheck3"
+                      onclick="toggleDebug()" />
+                    <label class="btn btn-outline-secondary" for="btncheck3"
                       >Debug</label
                     >
 
@@ -241,7 +241,7 @@
                       autocomplete="off"
                       checked
                       onclick="toggleInfo()" />
-                    <label class="btn btn-outline-primary" for="btncheck4"
+                    <label class="btn btn-outline-info" for="btncheck4"
                       >Info</label
                     >
                   </div>
@@ -254,12 +254,12 @@
               {% if "warn" in parts[2] %}
               <tr class="table-danger">
                 <!-- Debug Message -->
-                {% elif parts[2] == "debug" %}
+                {% elif "debug" in parts[2] %}
               </tr>
 
               <tr class="table-secondary">
                 <!-- Success Message -->
-                {% elif parts[2] == "success" %}
+                {% elif "success" in parts[2] %}
               </tr>
 
               <tr class="table-success">
@@ -311,18 +311,6 @@
       }
 
       function toggleDebug() {
-        const elements = document.querySelectorAll(".table-info");
-
-        elements.forEach((element) => {
-          if (element.style.display === "none") {
-            element.style.display = "";
-          } else {
-            element.style.display = "none";
-          }
-        });
-      }
-
-      function toggleInfo() {
         const elements = document.querySelectorAll(".table-secondary");
 
         elements.forEach((element) => {
@@ -333,6 +321,24 @@
           }
         });
 
+        console.log("Toggling Debug Messages");
+      }
+
+      // Debug messages are hidden by default
+      toggleDebug();
+
+      function toggleInfo() {
+        const elements = document.querySelectorAll(".table-info");
+
+        elements.forEach((element) => {
+          if (element.style.display === "none") {
+            element.style.display = "";
+          } else {
+            element.style.display = "none";
+          }
+        });
+
+        console.log("Toggling Info Elements");
       }
 
       function toggleSuccess() {

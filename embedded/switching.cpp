@@ -61,9 +61,7 @@ void Switching::disconnectPanelLine(int lineNumber) {
   if (lineNumber < PANEL_1 || lineNumber > PANEL_4) {
     return;
   }
-  // TODO: Invert the logic here for relay
-  digitalWrite(panelControlPins[lineNumber], LOW);
-  // Serial.println("Disconnecting panel " + String(lineNumber));
+  digitalWrite(panelControlPins[lineNumber], HIGH);
 }
 
 /**
@@ -75,7 +73,7 @@ void Switching::connectPanelLine(int lineNumber) {
     return;
   }
   // TODO: Invert the logic here for relays
-  digitalWrite(panelControlPins[lineNumber], HIGH);
+  digitalWrite(panelControlPins[lineNumber], LOW);
   // Serial.println("Connecting Panel: " + String(lineNumber));
 }
 
