@@ -25,18 +25,18 @@ void Switching::startChargingBattery(int batteryNumber) {
 
   // Toggle the relay switches for the battery
   int relayLogicValue = batterySwitchingLogic(batteryNumber);
-  Serial.print(relayLogicValue);
-  Serial.print(" > ");
-  Serial.print(String(int(relayLogicValue % 2)) + String(int(relayLogicValue / 2) % 2) + String(int(relayLogicValue / 4) % 2));
+  // Serial.print(relayLogicValue);
+  // Serial.print(" > ");
+  // Serial.print(String(int(relayLogicValue % 2)) + String(int(relayLogicValue / 2) % 2) + String(int(relayLogicValue / 4) % 2));
 
   // Set the relay bits on the GPIO
   // TODO: Invert the logic for relays here
-  digitalWrite(batteryControlPins[panelNumber][2], !bool(int(relayLogicValue % 2)));
-  digitalWrite(batteryControlPins[panelNumber][1], !bool(int(relayLogicValue / 2) % 2));
+  digitalWrite(batteryControlPins[panelNumber][2],  bool(int(relayLogicValue % 2)));
+  digitalWrite(batteryControlPins[panelNumber][1], bool(int(relayLogicValue / 2) % 2));
   if(batteryControlPins[panelNumber][1] == 25 && bool(int(relayLogicValue / 2) % 2)){
     analogWrite(25, 255);
   }
-  digitalWrite(batteryControlPins[panelNumber][0], !bool(int(relayLogicValue / 4) % 2));
+  digitalWrite(batteryControlPins[panelNumber][0], ~bool(int(relayLogicValue / 4) % 2));
 
   // Small delay to ensure complete switching
   delay(1000);

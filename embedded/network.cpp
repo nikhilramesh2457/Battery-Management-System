@@ -75,13 +75,22 @@ int Network::logBatteryVoltage(int batteryNumber, float voltage, bool charging) 
 
   HTTPClient client;
 
+  client.addHeader("ngrok-skip-browser-warning", "true");
+  client.setFollowRedirects(followRedirects_t::HTTPC_STRICT_FOLLOW_REDIRECTS);
+
   // Perform the GET request to the Server
-  client.begin((String(SERVER_IP) + "/logBatteryState?battery_number=" + batteryNumber + "&voltage=" + String(voltage) + "&charging=" + String(int(charging))).c_str());
+  client.begin((String(SERVER_IP) + "/logBatteryState?battery_number=" + batteryNumber + "&voltage=" + String(voltage) + "&charging=" + String(int(charging))));
   Serial.println((String(SERVER_IP) + "/logBatteryState?battery_number=" + batteryNumber + "&voltage=" + String(voltage) + "&charging=" + String(int(charging))));
+  
+  // client.addHeader("ngork-skip-browser-warning", "2134", true);
+  // client.setFollowRedirects(HTTPClient.followRedirects_t.HTTPC_FORCE_FOLLOW_REDIRECTS);
   int responseCode = client.GET();
 
   Serial.print("Response code: ");
   Serial.println(responseCode);
+
+  Serial.print("Response:");
+  Serial.println(client.getString());
 
   // Free resources
   client.end();

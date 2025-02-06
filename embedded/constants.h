@@ -1,6 +1,11 @@
 #ifndef __CONSTANTS_H
 #define __CONSTANTS_H
 
+//#define __SERIAL_DEBUG__
+#define __TEST_RELAY_GPIO__
+
+#define ADC_COMPENSATION 0.07816
+
 // Battery numbers
 #define BATTERY_01 0
 #define BATTERY_02 1
@@ -37,13 +42,20 @@
 #define LOG_LEVEL_WARNING 2
 #define LOG_LEVEL_SUCCESS 3
 
-// Select lines 
-const int selectLines[] = {13, 12, 14, 27};
+//max battery voltage
+#define MAX_BATTERY_VOLTAGE 13.5
+
+// Select lines
+const int selectLines[] = { 13, 12, 14, 27 };
 
 // Battery Relay Controller Pins
-const int batteryControlPins[4][3] = {{-1, 22, 21}, {-1, 32, 23}, {-1, 26, 1}, {5, 18, 19}};
+#ifdef __SERIAL_DEBUG__
+const int batteryControlPins[4][3] = { { -1, 22, 21 }, { -1, 32, 23 }, { -1, 26, 23 }, { 5, 18, 19 } };
+#else
+const int batteryControlPins[4][3] = { { -1, 22, 21 }, { -1, 32, 23 }, { -1, 26, 1 }, { 5, 18, 19 } };
+#endif
 
 // Panel Relay Control Pins
-const byte panelControlPins[] = {17, 16, 15, 4};
+const byte panelControlPins[] = { 17, 16, 4, 15 };
 
 #endif

@@ -24,7 +24,7 @@ public:
   void logger(String message, int level);
 };
 
-static const char* ssid = "muS";
-static const char* pswd = "1qaz2wsx3edc4rfv";
+static const char* ssid = "motog52";//muS
+static const char* pswd = "123456789";//1qaz2wsx3edc4rfv
 
 #endif

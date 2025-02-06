@@ -17,60 +17,61 @@ float VoltageProbe::map_f(double value, double fromLow, double fromHigh, double 
 * @param prevSeriesLinkVoltage (float): Series Link Voltage until the previous Battery
 * @return (float) Battery Voltage
 **/
+
 float VoltageProbe::calcVoltage(float volt, int batteryNumber, float prevSeriesLinkVoltage) {
   if (batteryNumber == BATTERY_01) {
-    return map_f(volt, 1.91, 1.75, 12.20, 12.40);
+    return volt * ATTEN_RATIO_1 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_02) {
-    return map_f(volt, 2.09, 2, 12.40, 11.77);
+    return volt * ATTEN_RATIO_2 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_03) {
-    return map_f(volt, 2.13, 1.95, 11.77, 11.15);
+    return volt * ATTEN_RATIO_3 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_04) {
-    return map_f(volt, 1.99, 2.87, 11.15, 11.73);
+    return volt * ATTEN_RATIO_4 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_05) {
-    return map_f(volt, 2.13, 2.43, 11.73, 12.20);
+    return volt * ATTEN_RATIO_5 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_06) {
-    return map_f(volt, 2.12, 2.86, 12.20, 11.80);
+    return volt * ATTEN_RATIO_6 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_07) {
-    return map_f(volt, 2.02, 1.98, 11.80, 12.17);
+    return volt * ATTEN_RATIO_7 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_08) {
-    return map_f(volt, 1, 1.75, 12.17, 11.87);
+    return volt * ATTEN_RATIO_8 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_09) {
-    return map_f(volt, 2.13, 2.86, 11.87, 12.01);
+    return volt * ATTEN_RATIO_9 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_10) {
-    return map_f(volt, 0.82, 2.43, 12.01, 12.53);
+    return volt * ATTEN_RATIO_10 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_11) {
-    return map_f(volt, 2.84, 2.58, 12.53, 12.47);
+    return volt * ATTEN_RATIO_11 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_12) {
-    return map_f(volt, 2.39, 2.42, 12.47, 12.62);
+    return volt * ATTEN_RATIO_12 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_13) {
-    return map_f(volt, 2.66, 2.7, 12.62, 13.86);
+    return volt * ATTEN_RATIO_13 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_14) {
-    return map_f(volt, 3.04, 3.07, 12.68, 13.86);
+    return volt * ATTEN_RATIO_14 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_15) {
-    return map_f(volt, 3.17, 3.29, 10.02, 13.97);
+    return volt * ATTEN_RATIO_15 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_16) {
-    return map_f(volt, 2.19, 2.23, 12.09, 14.05);
+    return volt * ATTEN_RATIO_16 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_17) {
-    return map_f(volt, 2.86, 2.95, 10.01, 14.01);
+    return volt * ATTEN_RATIO_17 - prevSeriesLinkVoltage;
   }
   return -1;
-}
+  }
 
 /**
  * Get raw voltage reading from Resistor Bridge
@@ -101,11 +102,11 @@ int VoltageProbe::setMux(int line2Select) {
     return -1;
   }
 
-  Serial.print("Binary bits: ");
-  Serial.print(!bool(int(line2Select % 2)));
-  Serial.print(!bool(int(line2Select / 2) % 2));
-  Serial.print(!bool(int(line2Select / 4) % 2));
-  Serial.println(!bool(int(line2Select / 8) % 2));
+  // Serial.print("Binary bits: ");
+  // Serial.print(!bool(int(line2Select % 2)));
+  // Serial.print(!bool(int(line2Select / 2) % 2));
+  // Serial.print(!bool(int(line2Select / 4) % 2));
+  // Serial.println(!bool(int(line2Select / 8) % 2));
 
   digitalWrite(selectLines[0], !bool(line2Select % 2));
   digitalWrite(selectLines[1], !bool(int(line2Select / 2) % 2));
