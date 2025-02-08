@@ -20,55 +20,55 @@ float VoltageProbe::map_f(double value, double fromLow, double fromHigh, double 
 
 float VoltageProbe::calcVoltage(float volt, int batteryNumber, float prevSeriesLinkVoltage) {
   if (batteryNumber == BATTERY_01) {
-    return volt * ATTEN_RATIO_1 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_1 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_02) {
-    return volt * ATTEN_RATIO_2 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_2 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_03) {
-    return volt * ATTEN_RATIO_3 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_3 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_04) {
-    return volt * ATTEN_RATIO_4 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_4 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_05) {
-    return volt * ATTEN_RATIO_5 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_5 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_06) {
-    return volt * ATTEN_RATIO_6 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_6 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_07) {
-    return volt * ATTEN_RATIO_7 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_7 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_08) {
-    return volt * ATTEN_RATIO_8 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_8 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_09) {
-    return volt * ATTEN_RATIO_9 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_9 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_10) {
-    return volt * ATTEN_RATIO_10 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_10 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_11) {
-    return volt * ATTEN_RATIO_11 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_11 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_12) {
-    return volt * ATTEN_RATIO_12 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_12 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_13) {
-    return volt * ATTEN_RATIO_13 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_13 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_14) {
-    return volt * ATTEN_RATIO_14 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_14 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_15) {
-    return volt * ATTEN_RATIO_15 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_15 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_16) {
-    return volt * ATTEN_RATIO_16 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_16 - prevSeriesLinkVoltage;
   }
   if (batteryNumber == BATTERY_17) {
-    return volt * ATTEN_RATIO_17 - prevSeriesLinkVoltage;
+    return volt * GAIN_RATIO_17 - prevSeriesLinkVoltage;
   }
   return -1;
   }
